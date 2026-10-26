@@ -1,0 +1,46 @@
+name: Render Remotion Motion Graphics Video
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  render:
+    name: Render FRAME Studio Promo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: examples/package-lock.json
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install Node Dependencies
+        run: |
+          cd examples
+          npm ci || npm install
+
+      - name: Render MP4 Video
+        run: |
+          cd examples
+          npm run render:frame
+
+      - name: Upload Video Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frame-studio-promo-mp4
+          path: examples/out/frame-promo.mp4
+          if-no-files-found: error

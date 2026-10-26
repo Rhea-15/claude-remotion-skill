@@ -8,6 +8,7 @@ import { FocusCatPromo, FTOTAL_S } from "./focuscat/FocusCat";
 import { SkillPromo, TOTAL_S as SKILL_TOTAL_S } from "./skill/SkillPromo";
 import { SelfFix, SELF_TOTAL_F } from "./selffix/SelfFix";
 import { CodeEdit, CE_TOTAL_F } from "./codeedit/CodeEdit";
+import { FramePromo, FRAME_TOTAL_S } from "./frame/FramePromo";
 import { BgMesh, Grade, Grain, Vignette } from "./components/Layers";
 import { Hook } from "./scenes/Hook";
 import { Bio } from "./scenes/Bio";
@@ -97,6 +98,14 @@ export const Root: React.FC = () => (
       fps={FPS}
       width={1920}
       height={1080}
+    />
+    <Composition
+      id="FrameStudioPromo"
+      component={FramePromo}
+      durationInFrames={Math.round(FPS * FRAME_TOTAL_S)}
+      fps={FPS}
+      width={1080}
+      height={1920}
     />
   </>
 );
